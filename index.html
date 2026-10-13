@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Павел Лискин — CMO и директор по развитию бизнеса (BizDev). Эксперт в B2B-маркетинге, разработке GTM-стратегий и масштабировании технологических продуктов.">
+    <meta property="og:title" content="Павел Лискин | CMO & Business Development Director">
+    <meta property="og:description" content="Эксперт в B2B-маркетинге, разработке GTM-стратегий и масштабировании технологических продуктов.">
     <title>Павел Лискин | CMO & Business Development Director</title>
+    
+    <!-- Подключение библиотеки для графиков -->
+    <script src="https://jsdelivr.net"></script>
+
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -34,26 +41,21 @@
             margin: 0 auto;
         }
 
-        /* Главный экран */
+        /* Главный экран и фото */
         header {
             text-align: center;
             margin-bottom: 3.5rem;
         }
 
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-color), #10b981);
             margin: 0 auto 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: bold;
-            color: white;
-            border: 3px solid var(--border-color);
+            display: block;
             object-fit: cover;
+            border: 3px solid var(--border-color);
+            background-color: var(--card-bg);
         }
 
         h1 {
@@ -93,32 +95,52 @@
             letter-spacing: -0.02em;
         }
 
-        /* Сетка ключевых метрик */
-        .stats-grid {
+        /* Интерактивный дашборд */
+        .dashboard-controls {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
             margin-bottom: 1.5rem;
         }
-
-        .stat-card {
-            background-color: rgba(59, 130, 246, 0.05);
-            border: 1px solid rgba(59, 130, 246, 0.15);
-            padding: 1rem;
-            border-radius: 12px;
-            text-align: center;
+        @media (max-width: 600px) {
+            .dashboard-controls { grid-template-columns: 1fr; }
         }
 
-        .stat-val {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--accent-light);
-            display: block;
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
-        .stat-lbl {
-            font-size: 0.85rem;
+        label {
+            font-size: 0.9rem;
             color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        select, input[type="range"] {
+            width: 100%;
+            background-color: #1f2937;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 0.6rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+        
+        .slider-val {
+            font-size: 0.85rem;
+            color: var(--accent-light);
+            text-align: right;
+            margin-top: -0.2rem;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            margin-top: 1.5rem;
         }
 
         /* Навыки */
@@ -137,7 +159,7 @@
             border: 1px solid var(--border-color);
         }
 
-        /* Опыт (Таймлайн) */
+        /* Опыт */
         .job {
             margin-bottom: 1.5rem;
         }
@@ -158,7 +180,7 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Ссылки / Кнопки */
+        /* Ссылки */
         .links-list {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -214,32 +236,33 @@
         
         <!-- Главный экран -->
         <header>
-            <img src="avatar.jpeg" class="avatar" alt="ПЛ">
+            <img src="avatar.jpg" class="avatar" alt="Павел Лискин">
             <h1>Павел Лискин</h1>
             <div class="subtitle">CMO & Business Development Director</div>
             <p class="bio">Управление полным циклом B2B-маркетинга и международным развитием бизнеса. Эксперт в разработке GTM-стратегий, выстраивании ABM и кратных масштабированиях выручки технологических продуктов.</p>
         </header>
 
-        <!-- Ключевые достижения в цифрах -->
+        <!-- Интерактивные результаты -->
         <section>
-            <h2>Результаты в цифрах</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span class="stat-val">283.6%</span>
-                    <span class="stat-lbl">ROMI (МД Аудит)</span>
+            <h2>Результаты в цифрах (Интерактивный дашборд)</h2>
+            <div class="dashboard-controls">
+                <div class="control-group">
+                    <label for="metricSelect">Выберите показатель:</label>
+                    <select id="metricSelect">
+                        <option value="leads">Генерация лидов (MQL / SQL)</option>
+                        <option value="romi">Динамика ROMI (%)</option>
+                        <option value="revenue">Выручка новых вертикалей ($ млн)</option>
+                    </select>
                 </div>
-                <div class="stat-card">
-                    <span class="stat-val">> $30 млн</span>
-                    <span class="stat-lbl">Выручка новых вертикалей</span>
+                <div class="control-group">
+                    <label for="budgetSlider">Моделирование маркетингового бюджета:</label>
+                    <input type="range" id="budgetSlider" min="50" max="200" value="100" step="10">
+                    <span class="slider-val" id="sliderVal">Эффективность масштабирования: 100%</span>
                 </div>
-                <div class="stat-card">
-                    <span class="stat-val">3х</span>
-                    <span class="stat-lbl">Рост выручки AppLift</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-val">1.4 млн</span>
-                    <span class="stat-lbl">Загрузок приложения</span>
-                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="metricsChart"></canvas>
             </div>
         </section>
 
@@ -261,19 +284,16 @@
         <!-- Опыт работы -->
         <section>
             <h2>Опыт управления</h2>
-            
             <div class="job">
                 <div class="job-title">Директор по маркетингу МД Аудит</div>
                 <div class="job-company">Софтлайн Решения</div>
                 <div class="job-time">07.2021 – по настоящее время</div>
             </div>
-
             <div class="job">
                 <div class="job-title">Директор по цифровым технологиям и маркетингу Movista</div>
                 <div class="job-company">Трансмашхолдинг</div>
                 <div class="job-time">01.2018 – 05.2020</div>
             </div>
-
             <div class="job">
                 <div class="job-title">Директор филиала, Россия и СНГ</div>
                 <div class="job-company">AppLift (Германия)</div>
@@ -287,15 +307,5 @@
             <div class="links-list">
                 <a href="https://t.me/zabudun" target="_blank" class="btn btn-primary">💬 Связаться в Telegram</a>
                 <a href="mailto:pavel.liskin@gmail.com" class="btn">✉️ Email</a>
-                <a href="https://www.linkedin.com/in/pavelliskin/" target="_blank" class="btn">👔 LinkedIn</a>
+                <a href="https://linkedin.com" target="_blank" class="btn">👔 LinkedIn</a>
             </div>
-        </section>
-
-        <footer>
-            <p>© 2026 Павел Лискин. Свободное владение английским языком.</p>
-        </footer>
-
-    </div>
-
-</body>
-</html>
