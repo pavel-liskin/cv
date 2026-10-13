@@ -149,70 +149,57 @@
         <!-- Интерактивные результаты -->
         <section>
             <h2>Результаты в цифрах (Интерактивный дашборд)</h2>
-<div class="funnel-dashboard" style="background: #0f172a; color: #ffffff; padding: 24px; border-radius: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 500px; margin: 0 auto; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);">
-    
-    <h3 style="margin: 0 0 20px 0; font-size: 1.25rem; font-weight: 600; text-align: center; color: #f8fafc;">
-        Кейсы маркетолога Павла Лискина
-    </h3>
-
-    <!-- Визуальный блок воронки (теперь с плавным изменением ширины) -->
-    <div class="funnel-container" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px;">
-        <!-- Трафик всегда 100% ширины, так как это верх воронки -->
-        <div id="block-traffic" style="background: #3b82f6; padding: 14px; text-align: center; font-weight: bold; font-size: 0.95rem; border-radius: 4px; clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%); transition: width 0.4s ease, clip-path 0.4s ease; margin: 0 auto; width: 100%;">
-            Трафик: <span id="funnel-traffic">3 333</span>
-        </div>
-        
-        <div id="block-mql" style="background: #60a5fa; padding: 14px; text-align: center; font-weight: bold; font-size: 0.95rem; border-radius: 4px; margin: 0 auto; width: 85%; clip-path: polygon(0 0, 100% 0, 82% 100%, 18% 100%); transition: width 0.4s ease, clip-path 0.4s ease;">
-            MQL: <span id="funnel-mql">283</span>
-        </div>
-        
-        <div id="block-sql" style="background: #f59e0b; padding: 14px; text-align: center; font-weight: bold; font-size: 0.95rem; border-radius: 4px; margin: 0 auto; width: 70%; clip-path: polygon(0 0, 100% 0, 78% 100%, 22% 100%); transition: width 0.4s ease, clip-path 0.4s ease;">
-            SQL: <span id="funnel-sql">113</span>
-        </div>
-        
-        <div id="block-deals" style="background: #10b981; padding: 14px; text-align: center; font-weight: bold; font-size: 0.95rem; border-radius: 4px; margin: 0 auto; width: 55%; clip-path: polygon(0 0, 100% 0, 72% 100%, 28% 100%); transition: width 0.4s ease, clip-path 0.4s ease;">
-            Сделки: <span id="funnel-deals">28</span>
-        </div>
-    </div>
-
-    <!-- Блок управления с ползунками -->
+    <!-- Блок управления с ползунками (Стили под ваш скриншот) -->
     <div class="funnel-controls" style="background: #111827; padding: 24px; border-radius: 16px; display: flex; flex-direction: column; gap: 24px; border: 1px solid #1f2937;">
         
-        <div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem; color: #9ca3af;">
-                <span>Маркетинговый budget</span>
+        <!-- Ползунок бюджета -->
+        <div style="position: relative;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem; color: #9ca3af; font-family: sans-serif;">
+                <span>Маркетинговый бюджет</span>
                 <span style="color: #ffffff; font-weight: 600;"><span id="budgetVal">150 000</span> ₽</span>
             </div>
-            <input type="range" id="budgetSlider" min="50000" max="1000000" step="10000" value="150000" class="custom-slider">
+            <div class="slider-wrapper" style="position: relative; width: 100%; height: 8px;">
+                <input type="range" id="budgetSlider" min="50000" max="1000000" step="10000" value="150000" class="custom-slider">
+            </div>
         </div>
 
-        <div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem; color: #9ca3af;">
+        <!-- Ползунок стоимости клика -->
+        <div style="position: relative;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem; color: #9ca3af; font-family: sans-serif;">
                 <span>Стоимость клика CPC</span>
                 <span style="color: #ffffff; font-weight: 600;"><span id="cpcVal">45</span> ₽</span>
             </div>
-            <input type="range" id="cpcSlider" min="10" max="200" step="5" value="45" class="custom-slider">
+            <div class="slider-wrapper" style="position: relative; width: 100%; height: 8px;">
+                <input type="range" id="cpcSlider" min="10" max="200" step="5" value="45" class="custom-slider">
+            </div>
         </div>
 
-        <div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem; color: #9ca3af;">
+        <!-- Ползунок конверсии в лид -->
+        <div style="position: relative;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem; color: #9ca3af; font-family: sans-serif;">
                 <span>Конверсия в лид CR</span>
                 <span style="color: #ffffff; font-weight: 600;"><span id="crVal">8.5</span>%</span>
             </div>
-            <input type="range" id="crSlider" min="1" max="20" step="0.5" value="8.5" class="custom-slider">
+            <div class="slider-wrapper" style="position: relative; width: 100%; height: 8px;">
+                <input type="range" id="crSlider" min="1" max="20" step="0.5" value="8.5" class="custom-slider">
+            </div>
         </div>
 
-        <div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem; color: #9ca3af;">
+        <!-- Ползунок эффективности масштабирования -->
+        <div style="position: relative;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem; color: #9ca3af; font-family: sans-serif;">
                 <span>Эффективность масштабирования</span>
                 <span style="color: #3b82f6; font-weight: 600;"><span id="scaleVal">100</span>%</span>
             </div>
-            <input type="range" id="scaleSlider" min="10" max="100" step="5" value="100" class="custom-slider">
+            <div class="slider-wrapper" style="position: relative; width: 100%; height: 8px;">
+                <input type="range" id="scaleSlider" min="10" max="100" step="5" value="100" class="custom-slider">
+            </div>
         </div>
 
     </div>
 </div>
 
+<!-- Встроенные CSS стили для точного отображения как на картинке -->
 <style>
 .custom-slider {
     -webkit-appearance: none;
@@ -220,11 +207,17 @@
     width: 100%;
     height: 8px;
     border-radius: 9999px;
-    background: #ffffff;
+    background: #ffffff; /* Белая подложка для неактивной части */
     outline: none;
     margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
     cursor: pointer;
 }
+
+/* Стилизация круглой кнопки (Thumb) для Chrome, Safari, Opera */
 .custom-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -232,98 +225,29 @@
     height: 20px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
     cursor: pointer;
     border: none;
+    margin-top: -6px; /* Выравнивание по центру относительно дорожки */
 }
+
+/* Стилизация дорожки для Chrome (чтобы левая часть была синей) */
+.custom-slider {
+    background: linear-gradient(to right, #3b82f6 0%, #3b82f6 100%, #ffffff 100%, #ffffff 100%);
+}
+
+/* Стилизация круглой кнопки для Firefox */
 .custom-slider::-moz-range-thumb {
     width: 20px;
     height: 20px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
     cursor: pointer;
     border: none;
 }
 </style>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const sliders = ['budget', 'cpc', 'cr', 'scale'];
-    const nodes = {};
-
-    sliders.forEach(id => {
-        nodes[id + 'Slider'] = document.getElementById(id + 'Slider');
-        nodes[id + 'Val'] = document.getElementById(id + 'Val');
-    });
-
-    const funnelTraffic = document.getElementById('funnel-traffic');
-    const funnelMql = document.getElementById('funnel-mql');
-    const funnelSql = document.getElementById('funnel-sql');
-    const funnelDeals = document.getElementById('funnel-deals');
-
-    // DOM-элементы самих блоков для динамического изменения ширины
-    const blockMql = document.getElementById('block-mql');
-    const blockSql = document.getElementById('block-sql');
-    const blockDeals = document.getElementById('block-deals');
-
-    function updateSliderColors(slider) {
-        const percentage = ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
-        slider.style.background = `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${percentage}%, #ffffff ${percentage}%, #ffffff 100%)`;
-    }
-
-    function calculate() {
-        const budget = parseInt(nodes.budgetSlider.value, 10);
-        const cpc = parseInt(nodes.cpcSlider.value, 10);
-        const cr = parseFloat(nodes.crSlider.value) / 100;
-        const scale = parseInt(nodes.scaleSlider.value, 10) / 100;
-
-        // Математика конверсий
-        const traffic = Math.round(budget / cpc);
-        const mql = Math.round((traffic * cr) * scale);
-        const sql = Math.round(mql * 0.40);
-        const deals = Math.round(sql * 0.25);
-
-        // Обновление цифр над ползунками
-        nodes.budgetVal.innerText = budget.toLocaleString('ru-RU');
-        nodes.cpcVal.innerText = cpc;
-        nodes.crVal.innerText = nodes.crSlider.value;
-        nodes.scaleVal.innerText = nodes.scaleSlider.value;
-
-        // Запись значений в текст
-        funnelTraffic.innerText = traffic.toLocaleString('ru-RU');
-        funnelMql.innerText = mql.toLocaleString('ru-RU');
-        funnelSql.innerText = sql.toLocaleString('ru-RU');
-        funnelDeals.innerText = deals.toLocaleString('ru-RU');
-
-        // ДИНАМИЧЕСКОЕ ИЗМЕНЕНИЕ ШИРИНЫ ВОРОНКИ
-        // Вычисляем процент удержания этапа от входящего трафика
-        // Задаем минимальный порог (например, 20%), чтобы блоки не исчезали в 0% при плохих метриках
-        const mqlWidth = Math.max(20, Math.min(95, (mql / traffic) * 100 * 5)); // Умножаем на коэффициент для наглядности визуализации
-        const sqlWidth = Math.max(15, Math.min(85, (sql / traffic) * 100 * 10));
-        const dealsWidth = Math.max(10, Math.min(75, (deals / traffic) * 100 * 20));
-
-        // Применяем ширину к блокам воронки
-        blockMql.style.width = `${mqlWidth}%`;
-        blockSql.style.width = `${sqlWidth}%`;
-        blockDeals.style.width = `${dealsWidth}%`;
-
-        // Динамически пересчитываем скосы трапеций (clip-path), чтобы форма не ломалась при изменении ширины
-        blockMql.style.clipPath = `polygon(0 0, 100% 0, ${100 - (18 * (85/mqlWidth))}% 100%, ${(18 * (85/mqlWidth))}% 100%)`;
-        blockSql.style.clipPath = `polygon(0 0, 100% 0, ${100 - (22 * (70/sqlWidth))}% 100%, ${(22 * (70/sqlWidth))}% 100%)`;
-        blockDeals.style.clipPath = `polygon(0 0, 100% 0, ${100 - (28 * (55/dealsWidth))}% 100%, ${(28 * (55/dealsWidth))}% 100%)`;
-
-        // Перекрашивание линий прогресса ползунков
-        sliders.forEach(id => updateSliderColors(nodes[id + 'Slider']));
-    }
-
-    sliders.forEach(id => {
-        nodes[id + 'Slider'].addEventListener('input', calculate);
-    });
-
-    calculate();
-});
-</script>
 
         </section>
 
