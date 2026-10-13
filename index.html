@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Павел Лискин — CMO и директор по развитию бизнеса (BizDev). Эксперт в B2B-маркетинге, разработке GTM-стратегий и масштабировании технологических продуктов.">
-    <meta property="og:title" content="Павел Лискин | CMO & VP of Business Development">
+    <meta property="og:title" content="Павел Лискин | CMO & Business Development Director">
     <meta property="og:description" content="Эксперт в B2B-маркетинге, разработке GTM-стратегий и масштабировании технологических продуктов.">
-    <title>Павел Лискин | CMO & VP of Business Development</title>
+    <title>Павел Лискин | CMO & Business Development Director</title>
     
     <!-- Подключение стабильной версии библиотеки графиков -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="dashboard.js"></script>
+    <script src="https://jsdelivr.net"></script>
 
     <style>
         :root {
@@ -140,7 +139,7 @@
         
         <!-- Главный экран -->
         <header>
-            <img src="avatar.jpeg" class="avatar" alt="ПЛ">
+            <img src="avatar.jpg" class="avatar" alt="Павел Лискин">
             <h1>Павел Лискин</h1>
             <div class="subtitle">CMO & Business Development Director</div>
             <p class="bio">Управление полным циклом B2B-маркетинга и международным развитием бизнеса. Эксперт в разработке GTM-стратегий, выстраивании ABM и кратных масштабированиях выручки технологических продуктов.</p>
@@ -149,77 +148,25 @@
         <!-- Интерактивные результаты -->
         <section>
             <h2>Результаты в цифрах (Интерактивный дашборд)</h2>
-   <div class="funnel-dashboard" style="background: #0f172a; color: #ffffff; padding: 24px; border-radius: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 500px; margin: 0 auto; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);">
-    
-    <h3 style="margin: 0 0 20px 0; font-size: 1.25rem; font-weight: 600; text-align: center; color: #f8fafc;">
-        Кейсы маркетолога Павла Лискина
-    </h3>
-
-    <!-- Визуальный блок воронки -->
-    <div class="funnel-container" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px;">
-        
-        <!-- Этап 1: Трафик -->
-        <div style="background: #3b82f6; padding: 14px; text-align: center; font-weight: bold; font-size: 0.95rem; border-radius: 4px; clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%); transition: all 0.3s ease;">
-            Трафик: <span id="funnel-traffic">3 333</span>
-        </div>
-        
-        <!-- Этап 2: MQL -->
-        <div style="background: #60a5fa; padding: 14px; text-align: center; font-weight: bold; font-size: 0.95rem; border-radius: 4px; width: 85%; margin: 0 auto; clip-path: polygon(0 0, 100% 0, 82% 100%, 18% 100%); transition: all 0.3s ease;">
-            MQL: <span id="funnel-mql">283</span>
-        </div>
-        
-        <!-- Этап 3: SQL -->
-        <div style="background: #f59e0b; padding: 14px; text-align: center; font-weight: bold; font-size: 0.95rem; border-radius: 4px; width: 70%; margin: 0 auto; clip-path: polygon(0 0, 100% 0, 78% 100%, 22% 100%); transition: all 0.3s ease;">
-            SQL: <span id="funnel-sql">113</span>
-        </div>
-        
-        <!-- Этап 4: Сделки -->
-        <div style="background: #10b981; padding: 14px; text-align: center; font-weight: bold; font-size: 0.95rem; border-radius: 4px; width: 55%; margin: 0 auto; clip-path: polygon(0 0, 100% 0, 72% 100%, 28% 100%); transition: all 0.3s ease;">
-            Сделки: <span id="funnel-deals">28</span>
-        </div>
-        
-    </div>
-    <!-- Блок управления с ползунками -->
-    <div class="funnel-controls" style="background: #1e293b; padding: 20px; border-radius: 12px; display: flex; flex-direction: column; gap: 16px;">
-        
-        <!-- Ползунок бюджета -->
-        <div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.875rem; color: #9ca3af;">
-                <span>Маркетинговый бюджет</span>
-                <span style="color: #f8fafc; font-weight: 600;"><span id="budgetVal">150 000</span> ₽</span>
+            <div class="dashboard-controls">
+                <div class="control-group">
+                    <label for="metricSelect">Выберите показатель:</label>
+                    <select id="metricSelect">
+                        <option value="leads">Генерация лидов (MQL / SQL)</option>
+                        <option value="romi">Динамика ROMI (%)</option>
+                        <option value="revenue">Выручка новых вертикалей ($ млн)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="budgetSlider">Моделирование маркетингового бюджета:</label>
+                    <input type="range" id="budgetSlider" min="50" max="200" value="100" step="10">
+                    <span class="slider-val" id="sliderVal">Эффективность масштабирования: 100%</span>
+                </div>
             </div>
-            <input type="range" id="budgetSlider" min="50000" max="1000000" step="10000" value="150000" style="width: 100%; cursor: pointer;">
-        </div>
-
-        <!-- Ползунок стоимости клика -->
-        <div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.875rem; color: #9ca3af;">
-                <span>Стоимость клика CPC</span>
-                <span style="color: #f8fafc; font-weight: 600;"><span id="cpcVal">45</span> ₽</span>
+            
+            <div class="chart-container">
+                <canvas id="metricsChart"></canvas>
             </div>
-            <input type="range" id="cpcSlider" min="10" max="200" step="5" value="45" style="width: 100%; cursor: pointer;">
-        </div>
-
-        <!-- Ползунок конверсии в лид -->
-        <div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.875rem; color: #9ca3af;">
-                <span>Конверсия в лид CR</span>
-                <span style="color: #f8fafc; font-weight: 600;"><span id="crVal">8.5</span>%</span>
-            </div>
-            <input type="range" id="crSlider" min="1" max="20" step="0.5" value="8.5" style="width: 100%; cursor: pointer;">
-        </div>
-
-        <!-- НОВЫЙ ПОЛЗУНОК: Эффективность масштабирования -->
-        <div style="border-top: 1px solid #334155; padding-top: 12px; margin-top: 4px;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.875rem; color: #9ca3af;">
-                <span>Эффективность масштабирования</span>
-                <span style="color: #3b82f6; font-weight: 600;"><span id="scaleVal">100</span>%</span>
-            </div>
-            <input type="range" id="scaleSlider" min="10" max="100" step="5" value="100" style="width: 100%; cursor: pointer;">
-        </div>
-
-    </div>
-</div>
         </section>
 
         <!-- Экспертиза -->
@@ -252,7 +199,7 @@
             </div>
             <div class="job">
                 <div class="job-title">Директор филиала, Россия и СНГ</div>
-                <div class="job-company">AppLift</div>
+                <div class="job-company">AppLift (Германия)</div>
                 <div class="job-time">11.2016 – 11.2017</div>
             </div>
         </section>
@@ -261,7 +208,7 @@
         <section>
             <h2>Контакты для связи</h2>
             <div class="links-list">
-                <a href="https://t.me/zabudun" target="_blank" class="btn btn-primary">💬 Связаться в Telegram</a>
+                <a href="https://t.me" target="_blank" class="btn btn-primary">💬 Связаться в Telegram</a>
                 <a href="mailto:pavel.liskin@gmail.com" class="btn">✉️ Email</a>
                 <a href="https://linkedin.com" target="_blank" class="btn">👔 LinkedIn</a>
             </div>
