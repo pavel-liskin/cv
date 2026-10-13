@@ -149,90 +149,110 @@
         <!-- Интерактивные результаты -->
         <section>
             <h2>Результаты в цифрах (Интерактивный дашборд)</h2>
-    <div class="dashboard-container" style="background: #0f172a; color: #fff; padding: 24px; border-radius: 12px; font-family: sans-serif;">
+     <div class="white-dashboard" style="background: #f8fafc; color: #1e293b; padding: 32px; border-radius: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 850px; margin: 20px auto; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
     
-    <!-- Верхний ряд: Воронка и График -->
-    <div class="dashboard-main-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+    <!-- Верхний блок: Воронка + График -->
+    <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; margin-bottom: 32px; align-items: center;">
         
-        <!-- Левая колонка: Воронка продаж. Визуальный блок воронки (Прямоугольный стиль) -->
-    <div class="funnel-container" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px;">
-        
-        <!-- Этап 1: Трафик -->
-        <div id="block-traffic" style="background: #3b82f6; padding: 14px; text-align: center; font-weight: bold; font-size: 0.95rem; border-radius: 8px; transition: width 0.4s ease; margin: 0 auto; width: 100%;">
-            Трафик: <span id="funnel-traffic">3 333</span>
-        </div>
-        
-        <!-- Этап 2: MQL -->
-        <div id="block-mql" style="background: #60a5fa; padding: 14px; text-align: center; font-weight: bold; font-size: 0.95rem; border-radius: 8px; margin: 0 auto; width: 85%; transition: width 0.4s ease;">
-            MQL: <span id="funnel-mql">283</span>
-        </div>
-        
-        <!-- Этап 3: SQL -->
-        <div id="block-sql" style="background: #f59e0b; padding: 14px; text-align: center; font-weight: bold; font-size: 0.95rem; border-radius: 8px; margin: 0 auto; width: 70%; transition: width 0.4s ease;">
-            SQL: <span id="funnel-sql">113</span>
-        </div>
-        
-        <!-- Этап 4: Сделки -->
-        <div id="block-deals" style="background: #10b981; padding: 14px; text-align: center; font-weight: bold; font-size: 0.95rem; border-radius: 8px; margin: 0 auto; width: 55%; transition: width 0.4s ease;">
-            Сделки: <span id="funnel-deals">28</span>
-        </div>
-        
-    </div>
+        <!-- Левая колонка: Прямоугольная воронка (MQL, SQL, Сделки) -->
+        <div class="rect-funnel" style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
+            <div id="funnel-mql-block" style="background: #3b82f6; color: #fff; padding: 14px; text-align: center; font-weight: 600; border-radius: 8px; transition: width 0.3s ease; margin: 0 auto; width: 100%;">
+                MQL: <span id="funnel-mql">1 001</span>
+            </div>
+            <div id="funnel-sql-block" style="background: #f97316; color: #fff; padding: 14px; text-align: center; font-weight: 600; border-radius: 8px; transition: width 0.3s ease; margin: 0 auto; width: 75%;">
+                SQL: <span id="funnel-sql">400</span>
+            </div>
+            <div id="funnel-deals-block" style="background: #10b981; color: #fff; padding: 14px; text-align: center; font-weight: 600; border-radius: 8px; transition: width 0.3s ease; margin: 0 auto; width: 50%;">
+                Сделки: <span id="funnel-deals">100</span>
+            </div>
         </div>
 
-        <!-- Правая колонка: Линейный график -->
-        <div class="chart-block" style="background: #1e293b; padding: 16px; border-radius: 8px; height: 300px;">
-            <h3 style="margin-top:0;">Динамика выручки по месяцам (₽)</h3>
-            <canvas id="metricsChart"></canvas>
+        <!-- Правая колонка: График -->
+        <div style="height: 240px; position: relative;">
+            <canvas id="dashboardRevenueChart"></canvas>
         </div>
     </div>
 
-    <!-- Средний ряд: Основные KPI плитки -->
-    <div class="kpi-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; text-align: center; margin-bottom: 24px;">
-        <div style="background: #1e293b; padding: 16px; border-radius: 8px;">
-            <div>Общая выручка</div>
-            <strong style="font-size: 24px; color: #3b82f6;"><span id="kpi-revenue">423 360</span> ₽</strong>
+    <!-- Разделительная линия -->
+    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 0 0 24px 0;">
+
+    <!-- Средний блок: Плитки финансовых KPI -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; text-align: center; margin-bottom: 32px;">
+        <div>
+            <div style="font-size: 0.9rem; color: #64748b; margin-bottom: 6px;">Итого Выручка</div>
+            <div id="kpi-revenue" style="font-size: 1.3rem; font-weight: 700; color: #0f172a;">139 500 ₽</div>
         </div>
-        <div style="background: #1e293b; padding: 16px; border-radius: 8px;">
-            <div>Окупаемость ROMI</div>
-            <strong style="font-size: 24px; color: #10b981;"><span id="kpi-romi">182.2</span>%</strong>
+        <div>
+            <div style="font-size: 0.9rem; color: #64748b; margin-bottom: 6px;">Прибыль (ROI)</div>
+            <div id="kpi-profit" style="font-size: 1.3rem; font-weight: 700; color: #ef4444;">-5 500 ₽</div>
         </div>
-        <div style="background: #1e293b; padding: 16px; border-radius: 8px;">
-            <div>Всего лидов (SQL)</div>
-            <strong style="font-size: 24px; color: #f59e0b;"><span id="kpi-sql">113</span></strong>
+        <div>
+            <div style="font-size: 0.9rem; color: #64748b; margin-bottom: 6px;">Окупаемость ROAS</div>
+            <div id="kpi-roas" style="font-size: 1.3rem; font-weight: 700; color: #0f172a;">96%</div>
         </div>
     </div>
 
-    <!-- Нижний ряд: Пресеты каналов и Ползунки управления -->
-    <div class="controls-block" style="background: #1e293b; padding: 16px; border-radius: 8px;">
-        <label>Канал привлечения (Пресеты)</label>
-        <select id="channelSelect" style="width: 100%; padding: 8px; margin: 8px 0 16px 0; background: #0f172a; color: white; border: 1px solid #475569; border-radius: 4px;">
-            <option value="context">Контекстная реклама (Яндекс/Google)</option>
-            <option value="target">Таргетированная реклама (VK/FB)</option>
-            <option value="seo">SEO Оптимизация и контент</option>
-        </select>
+    <!-- Разделительная линия -->
+    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 0 0 32px 0;">
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-            <div>
-                <label>Маркетинговый бюджет (₽): <span id="budgetVal">150 000</span></label>
-                <input type="range" id="budgetSlider" min="50000" max="1000000" step="10000" value="150 000" style="width: 100%;">
+    <!-- Нижний блок: Ползунки -->
+    <div style="display: flex; flex-direction: column; gap: 28px;">
+        <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 600; color: #475569; font-size: 0.95rem;">
+                <span>Маркетинговый бюджет</span>
+                <span style="color: #0f172a;"><span id="budgetTxt">145 000</span> ₽</span>
             </div>
-            <div>
-                <label>Стоимость клика CPC (₽): <span id="cpcVal">45</span></label>
-                <input type="range" id="cpcSlider" min="10" max="200" step="5" value="45" style="width: 100%;">
+            <input type="range" id="budgetRange" min="50000" max="500000" step="5000" value="145000" class="light-slider">
+        </div>
+
+        <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 600; color: #475569; font-size: 0.95rem;">
+                <span>Конверсия в продажи</span>
+                <span style="color: #0f172a;"><span id="conversionTxt">2.5</span>%</span>
             </div>
-            <div>
-                <label>Конверсия в лид CR (%): <span id="crVal">8.5</span>%</label>
-                <input type="range" id="crSlider" min="1" max="25" step="0.5" value="8.5" style="width: 100%;">
-            </div>
-            <div>
-                <label>Удержание Retention (%): <span id="retentionVal">65</span>%</label>
-                <input type="range" id="retentionSlider" min="10" max="90" step="5" value="65" style="width: 100%;">
-            </div>
+            <input type="range" id="conversionRange" min="0.5" max="10" step="0.1" value="2.5" class="light-slider">
         </div>
     </div>
 </div>
 
+<!-- Стили для красивых ползунков -->
+<style>
+.light-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background: #e2e8f0;
+    outline: none;
+    margin: 0;
+    cursor: pointer;
+}
+.light-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+    border: 4px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(59, 130, 246, 0.4);
+    transition: transform 0.1s ease;
+}
+.light-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+.light-slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+    border: 4px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(59, 130, 246, 0.4);
+}
+</style>
 
         <!-- Экспертиза -->
         <section>
