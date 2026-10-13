@@ -149,26 +149,81 @@
         <!-- Интерактивные результаты -->
         <section>
             <h2>Результаты в цифрах (Интерактивный дашборд)</h2>
-            <div class="dashboard-controls">
-                <div class="control-group">
-                    <label for="metricSelect">Выберите показатель:</label>
-                    <select id="metricSelect">
-                        <option value="leads">Генерация лидов (MQL / SQL)</option>
-                        <option value="romi">Динамика ROMI (%)</option>
-                        <option value="revenue">Выручка новых вертикалей ($ млн)</option>
-                    </select>
-                </div>
-                <div class="control-group">
-                    <label for="budgetSlider">Моделирование маркетингового бюджета:</label>
-                    <input type="range" id="budgetSlider" min="50" max="200" value="100" step="10">
-                    <span class="slider-val" id="sliderVal">Эффективность масштабирования: 100%</span>
-                </div>
+    <div class="dashboard-container" style="background: #0f172a; color: #fff; padding: 24px; border-radius: 12px; font-family: sans-serif;">
+    
+    <!-- Верхний ряд: Воронка и График -->
+    <div class="dashboard-main-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+        
+        <!-- Левая колонка: Воронка продаж -->
+        <div class="funnel-block" style="background: #1e293b; padding: 16px; border-radius: 8px;">
+            <h3 style="margin-top:0;">Кейсы маркетолога Павла Лискина</h3>
+            <div class="funnel-stage" style="background: #3b82f6; margin: 8px 0; padding: 12px; text-align: center; clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);">
+                Трафик: <span id="funnel-traffic">3 333</span>
             </div>
-            
-            <div class="chart-container">
-                <canvas id="metricsChart"></canvas>
+            <div class="funnel-stage" style="background: #60a5fa; margin: 8px auto; padding: 12px; text-align: center; width: 85%; clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);">
+                MQL: <span id="funnel-mql">283</span>
             </div>
-        </section>
+            <div class="funnel-stage" style="background: #f59e0b; margin: 8px auto; padding: 12px; text-align: center; width: 70%; clip-path: polygon(0 0, 100% 0, 75% 100%, 25% 100%);">
+                SQL: <span id="funnel-sql">113</span>
+            </div>
+            <div class="funnel-stage" style="background: #10b981; margin: 8px auto; padding: 12px; text-align: center; width: 50%; clip-path: polygon(0 0, 100% 0, 70% 100%, 30% 100%);">
+                Сделки: <span id="funnel-deals">28</span>
+            </div>
+        </div>
+
+        <!-- Правая колонка: Линейный график -->
+        <div class="chart-block" style="background: #1e293b; padding: 16px; border-radius: 8px; height: 300px;">
+            <h3 style="margin-top:0;">Динамика выручки по месяцам (₽)</h3>
+            <canvas id="metricsChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Средний ряд: Основные KPI плитки -->
+    <div class="kpi-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; text-align: center; margin-bottom: 24px;">
+        <div style="background: #1e293b; padding: 16px; border-radius: 8px;">
+            <div>Общая выручка</div>
+            <strong style="font-size: 24px; color: #3b82f6;"><span id="kpi-revenue">423 360</span> ₽</strong>
+        </div>
+        <div style="background: #1e293b; padding: 16px; border-radius: 8px;">
+            <div>Окупаемость ROMI</div>
+            <strong style="font-size: 24px; color: #10b981;"><span id="kpi-romi">182.2</span>%</strong>
+        </div>
+        <div style="background: #1e293b; padding: 16px; border-radius: 8px;">
+            <div>Всего лидов (SQL)</div>
+            <strong style="font-size: 24px; color: #f59e0b;"><span id="kpi-sql">113</span></strong>
+        </div>
+    </div>
+
+    <!-- Нижний ряд: Пресеты каналов и Ползунки управления -->
+    <div class="controls-block" style="background: #1e293b; padding: 16px; border-radius: 8px;">
+        <label>Канал привлечения (Пресеты)</label>
+        <select id="channelSelect" style="width: 100%; padding: 8px; margin: 8px 0 16px 0; background: #0f172a; color: white; border: 1px solid #475569; border-radius: 4px;">
+            <option value="context">Контекстная реклама (Яндекс/Google)</option>
+            <option value="target">Таргетированная реклама (VK/FB)</option>
+            <option value="seo">SEO Оптимизация и контент</option>
+        </select>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+            <div>
+                <label>Маркетинговый бюджет (₽): <span id="budgetVal">150 000</span></label>
+                <input type="range" id="budgetSlider" min="50000" max="1000000" step="10000" value="150 000" style="width: 100%;">
+            </div>
+            <div>
+                <label>Стоимость клика CPC (₽): <span id="cpcVal">45</span></label>
+                <input type="range" id="cpcSlider" min="10" max="200" step="5" value="45" style="width: 100%;">
+            </div>
+            <div>
+                <label>Конверсия в лид CR (%): <span id="crVal">8.5</span>%</label>
+                <input type="range" id="crSlider" min="1" max="25" step="0.5" value="8.5" style="width: 100%;">
+            </div>
+            <div>
+                <label>Удержание Retention (%): <span id="retentionVal">65</span>%</label>
+                <input type="range" id="retentionSlider" min="10" max="90" step="5" value="65" style="width: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
+
 
         <!-- Экспертиза -->
         <section>
@@ -200,7 +255,7 @@
             </div>
             <div class="job">
                 <div class="job-title">Директор филиала, Россия и СНГ</div>
-                <div class="job-company">AppLift (Германия)</div>
+                <div class="job-company">AppLift GmbH</div>
                 <div class="job-time">11.2016 – 11.2017</div>
             </div>
         </section>
