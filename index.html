@@ -8,7 +8,7 @@
     <meta property="og:description" content="Эксперт в B2B-маркетинге, разработке GTM-стратегий и масштабировании технологических продуктов.">
     <title>Павел Лискин | CMO & VP of Business Development</title>
     
-    <!-- Подключение библиотеки для графиков -->
+    <!-- Подключение стабильной версии библиотеки графиков -->
     <script src="https://jsdelivr.net"></script>
 
     <style>
@@ -22,11 +22,7 @@
             --accent-light: #60a5fa;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -36,16 +32,9 @@
             padding: 3rem 1rem;
         }
 
-        .container {
-            max-width: 750px;
-            margin: 0 auto;
-        }
+        .container { max-width: 750px; margin: 0 auto; }
 
-        /* Главный экран и фото */
-        header {
-            text-align: center;
-            margin-bottom: 3.5rem;
-        }
+        header { text-align: center; margin-bottom: 3.5rem; }
 
         .avatar {
             width: 120px;
@@ -58,27 +47,10 @@
             background-color: var(--card-bg);
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.03em;
-        }
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; letter-spacing: -0.03em; }
+        .subtitle { font-size: 1.25rem; color: var(--accent-light); font-weight: 500; margin-bottom: 1.5rem; }
+        .bio { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
 
-        .subtitle {
-            font-size: 1.25rem;
-            color: var(--accent-light);
-            font-weight: 500;
-            margin-bottom: 1.5rem;
-        }
-
-        .bio {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Разделы */
         section {
             background-color: var(--card-bg);
             border-radius: 16px;
@@ -95,28 +67,16 @@
             letter-spacing: -0.02em;
         }
 
-        /* Интерактивный дашборд */
         .dashboard-controls {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1.5rem;
             margin-bottom: 1.5rem;
         }
-        @media (max-width: 600px) {
-            .dashboard-controls { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 600px) { .dashboard-controls { grid-template-columns: 1fr; } }
 
-        .control-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        label {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
+        .control-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        label { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
 
         select, input[type="range"] {
             width: 100%;
@@ -129,27 +89,10 @@
             outline: none;
         }
         
-        .slider-val {
-            font-size: 0.85rem;
-            color: var(--accent-light);
-            text-align: right;
-            margin-top: -0.2rem;
-        }
+        .slider-val { font-size: 0.85rem; color: var(--accent-light); text-align: right; margin-top: -0.2rem; }
+        .chart-container { position: relative; width: 100%; height: 300px; margin-top: 1.5rem; }
 
-        .chart-container {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            margin-top: 1.5rem;
-        }
-
-        /* Навыки */
-        .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
+        .skills-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
         .skill-tag {
             background-color: #1f2937;
             color: #e5e7eb;
@@ -159,36 +102,14 @@
             border: 1px solid var(--border-color);
         }
 
-        /* Опыт */
-        .job {
-            margin-bottom: 1.5rem;
-        }
-        .job:last-child {
-            margin-bottom: 0;
-        }
-        .job-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-        .job-company {
-            color: var(--accent-light);
-            font-size: 0.95rem;
-        }
-        .job-time {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-        }
+        .job { margin-bottom: 1.5rem; }
+        .job:last-child { margin-bottom: 0; }
+        .job-title { font-size: 1.1rem; font-weight: 600; }
+        .job-company { color: var(--accent-light); font-size: 0.95rem; }
+        .job-time { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; }
 
-        /* Ссылки */
-        .links-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-        @media (max-width: 500px) {
-            .links-list { grid-template-columns: 1fr; }
-        }
+        .links-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        @media (max-width: 500px) { .links-list { grid-template-columns: 1fr; } }
 
         .btn {
             display: flex;
@@ -205,29 +126,11 @@
             border: 1px solid transparent;
         }
 
-        .btn:hover {
-            border-color: var(--accent-color);
-            color: var(--accent-light);
-            background-color: transparent;
-        }
+        .btn:hover { border-color: var(--accent-color); color: var(--accent-light); background-color: transparent; }
+        .btn-primary { background-color: var(--accent-color); color: white; grid-column: 1 / -1; }
+        .btn-primary:hover { background-color: #2563eb; color: white; }
 
-        .btn-primary {
-            background-color: var(--accent-color);
-            color: white;
-            grid-column: 1 / -1;
-        }
-
-        .btn-primary:hover {
-            background-color: #2563eb;
-            color: white;
-        }
-
-        footer {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-top: 3.5rem;
-        }
+        footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 3.5rem; }
     </style>
 </head>
 <body>
@@ -238,133 +141,33 @@
         <header>
             <img src="avatar.jpeg" class="avatar" alt="ПЛ">
             <h1>Павел Лискин</h1>
-            <div class="subtitle">CMO & VP of Business Development</div>
+            <div class="subtitle">CMO & Business Development Director</div>
             <p class="bio">Управление полным циклом B2B-маркетинга и международным развитием бизнеса. Эксперт в разработке GTM-стратегий, выстраивании ABM и кратных масштабированиях выручки технологических продуктов.</p>
         </header>
 
-<!-- Интерактивные результаты -->
-<section>
-    <h2>Результаты в цифрах (Интерактивный дашборд)</h2>
-    <div class="dashboard-controls">
-        <div class="control-group">
-            <label for="metricSelect">Выберите показатель:</label>
-            <select id="metricSelect">
-                <option value="leads">Генерация лидов (MQL / SQL)</option>
-                <option value="romi">Динамика ROMI (%)</option>
-                <option value="revenue">Выручка новых вертикалей (\$ млн)</option>
-            </select>
-        </div>
-        <div class="control-group">
-            <label for="budgetSlider">Моделирование маркетингового бюджета:</label>
-            <input type="range" id="budgetSlider" min="50" max="200" value="100" step="10">
-            <span class="slider-val" id="sliderVal">Эффективность масштабирования: 100%</span>
-        </div>
-    </div>
-    
-    <div class="chart-container">
-        <canvas id="metricsChart"></canvas>
-    </div>
-
-    <!-- Локальный скрипт управления графиком -->
-    <script>
-        const ctx = document.getElementById('metricsChart').getContext('2d');
-        
-        // Безопасный формат массивов данных через Array.of() для защиты от стирания в чате
-        const dataTemplates = {
-            leads: {
-                label: 'Новые лиды (SQL)',
-                data: Array.of(450, 1120, 2180, 3326),
-                labels: ['Квартал 1', 'Квартал 2', 'Квартал 3', 'Квартал 4 (Итого: 3326 SQL)'],
-                color: '#3b82f6'
-            },
-            romi: {
-                label: 'Уровень ROMI (%)',
-                data: Array.of(120, 185, 230, 283.6),
-                labels: ['2021 г.', '2022 г.', '2023 г.', '2024 г. (Пик: 283.6%)'],
-                color: '#10b981'
-            },
-            revenue: {
-                label: 'Выручка вертикалей (\$ млн)',
-                data: Array.of(4.2, 11.5, 21.0, 30.0),
-                labels: ['Этап 1', 'Этап 2', 'Этап 3', 'Финал (> \$30M)'],
-                color: '#a855f7'
-            }
-        };
-
-        let currentMetric = 'leads';
-        let scaleFactor = 1;
-        let myChart;
-
-        function initChart() {
-            const template = dataTemplates[currentMetric];
-            myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: template.labels,
-                    datasets: [{
-                        label: template.label,
-                        data: template.data,
-                        borderColor: template.color,
-                        backgroundColor: template.color + '15',
-                        fill: true,
-                        tension: 0.3,
-                        borderWidth: 3,
-                        pointRadius: 5,
-                        pointBackgroundColor: template.color
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { labels: { color: '#9ca3af', font: { family: '-apple-system', size: 12 } } }
-                    },
-                    scales: {
-                        y: {
-                            grid: { color: '#1f2937' },
-                            ticks: { color: '#9ca3af' }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: { color: '#9ca3af' }
-                        }
-                    }
-                }
-            });
-        }
-
-        function updateChart() {
-            const template = dataTemplates[currentMetric];
-            myChart.data.labels = template.labels;
-            myChart.data.datasets[0].label = template.label;
-            myChart.data.datasets[0].borderColor = template.color;
-            myChart.data.datasets[0].pointBackgroundColor = template.color;
-            myChart.data.datasets[0].backgroundColor = template.color + '15';
-            myChart.data.datasets[0].data = template.data.map(val => Number((val * scaleFactor).toFixed(1)));
-            myChart.update();
-        }
-
-        // Запуск при загрузке страницы
-        if (typeof Chart !== 'undefined') {
-            initChart();
-        } else {
-            window.addEventListener('load', initChart);
-        }
-
-        // Слушатели событий элементов интерфейса
-        document.getElementById('metricSelect').addEventListener('change', (e) => {
-            currentMetric = e.target.value;
-            updateChart();
-        });
-
-        document.getElementById('budgetSlider').addEventListener('input', (e) => {
-            const val = e.target.value;
-            scaleFactor = val / 100;
-            document.getElementById('sliderVal').innerText = `Эффективность масштабирования: ${val}%`;
-            updateChart();
-        });
-    </script>
-</section>
+        <!-- Интерактивные результаты -->
+        <section>
+            <h2>Результаты в цифрах (Интерактивный дашборд)</h2>
+            <div class="dashboard-controls">
+                <div class="control-group">
+                    <label for="metricSelect">Выберите показатель:</label>
+                    <select id="metricSelect">
+                        <option value="leads">Генерация лидов (MQL / SQL)</option>
+                        <option value="romi">Динамика ROMI (%)</option>
+                        <option value="revenue">Выручка новых вертикалей ($ млн)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="budgetSlider">Моделирование маркетингового бюджета:</label>
+                    <input type="range" id="budgetSlider" min="50" max="200" value="100" step="10">
+                    <span class="slider-val" id="sliderVal">Эффективность масштабирования: 100%</span>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="metricsChart"></canvas>
+            </div>
+        </section>
 
         <!-- Экспертиза -->
         <section>
@@ -396,12 +199,12 @@
             </div>
             <div class="job">
                 <div class="job-title">Директор филиала, Россия и СНГ</div>
-                <div class="job-company">AppLift (Германия)</div>
+                <div class="job-company">AppLift</div>
                 <div class="job-time">11.2016 – 11.2017</div>
             </div>
         </section>
 
-<!-- Связь -->
+        <!-- Связь -->
         <section>
             <h2>Контакты для связи</h2>
             <div class="links-list">
@@ -415,98 +218,9 @@
             <p>© 2026 Павел Лискин. Свободное владение английским языком.</p>
         </footer>
 
-    </div> <!-- Закрытие контейнера -->
+    </div>
 
-    <script>
-        const ctx = document.getElementById('metricsChart').getContext('2d');
-        
-        const dataTemplates = {
-            leads: {
-                label: 'Новые лиды (SQL)',
-                data: [500, 1200, 2100, 3326]
-                labels: ['Квартал 1', 'Квартал 2', 'Квартал 3', 'Квартал 4 (Итого: 3326 SQL)'],
-                color: '#3b82f6'
-            },
-            romi: {
-                label: 'Уровень ROMI (%)',
-                data: [120, 185, 230, 283.6],
-                labels: ['2021 г.', '2022 г.', '2023 г.', '2024 г. (Пик: 283.6%)'],
-                color: '#10b981'
-            },
-            revenue: {
-                label: 'Выручка вертикалей (\$ млн)',
-                data: [4.2, 11.5, 21.0, 30.0],
-                labels: ['Этап 1', 'Этап 2', 'Этап 3', 'Финал (> \$30M)'],
-                color: '#a855f7'
-            }
-        };
-
-        let currentMetric = 'leads';
-        let scaleFactor = 1;
-        let myChart;
-
-        function initChart() {
-            const template = dataTemplates[currentMetric];
-            myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: template.labels,
-                    datasets: [{
-                        label: template.label,
-                        data: template.data,
-                        borderColor: template.color,
-                        backgroundColor: template.color + '15',
-                        fill: true,
-                        tension: 0.3,
-                        borderWidth: 3,
-                        pointRadius: 5,
-                        pointBackgroundColor: template.color
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { labels: { color: '#9ca3af', font: { family: '-apple-system', size: 12 } } }
-                    },
-                    scales: {
-                        y: {
-                            grid: { color: '#1f2937' },
-                            ticks: { color: '#9ca3af' }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: { color: '#9ca3af' }
-                        }
-                    }
-                }
-            });
-        }
-
-        function updateChart() {
-            const template = dataTemplates[currentMetric];
-            myChart.data.labels = template.labels;
-            myChart.data.datasets[0].label = template.label;
-            myChart.data.datasets[0].borderColor = template.color;
-            myChart.data.datasets[0].pointBackgroundColor = template.color;
-            myChart.data.datasets[0].backgroundColor = template.color + '15';
-            myChart.data.datasets[0].data = template.data.map(val => Number((val * scaleFactor).toFixed(1)));
-            myChart.update();
-        }
-
-        initChart();
-
-        document.getElementById('metricSelect').addEventListener('change', (e) => {
-            currentMetric = e.target.value;
-            updateChart();
-        });
-
-        document.getElementById('budgetSlider').addEventListener('input', (e) => {
-            const val = e.target.value;
-            scaleFactor = val / 100;
-            document.getElementById('sliderVal').innerText = `Эффективность масштабирования: ${val}%`;
-            updateChart();
-        });
-    </script>
+    <!-- Подключаем внешний скрипт, который мы сейчас создадим -->
+    <script src="dashboard.js"></script>
 </body>
 </html>
