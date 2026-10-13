@@ -1,98 +1,55 @@
-// Ждем полной загрузки страницы и библиотеки Chart
 window.addEventListener('DOMContentLoaded', () => {
-    const canvasElement = document.getElementById('metricsChart');
-    if (!canvasElement) return;
+    // Получаем доступ к элементам ползунков
+    const budgetSlider = document.getElementById('budgetSlider');
+    const cpcSlider = document.getElementById('cpcSlider');
+    const crSlider = document.getElementById('crSlider');
+    const scaleSlider = document.getElementById('scaleSlider'); // Новый ползунок
 
-    const ctx = canvasElement.getContext('2d');
-    
-    // Вшитые жесткие массивы данных
-    const dataTemplates = {
-        leads: {
-            label: 'Новые лиды (SQL)',
-            data: [450, 1120, 2180, 3326],
-            labels: ['Квартал 1', 'Квартал 2', 'Квартал 3', 'Квартал 4 (Итого: 3326 SQL)'],
-            color: '#3b82f6'
-        },
-        romi: {
-            label: 'Уровень ROMI (%)',
-            data: [120, 185, 230, 283.6],
-            labels: ['2021 г.', '2022 г.', '2023 г.', '2024 г. (Пик: 283.6%)'],
-            color: '#10b981'
-        },
-        revenue: {
-            label: 'Выручка вертикалей (\$ млн)',
-            data: [4.2, 11.5, 21.0, 30.0],
-            labels: ['Этап 1', 'Этап 2', 'Этап 3', 'Финал (> \$30M)'],
-            color: '#a855f7'
-        }
-    };
+    // Получаем доступ к элементам вывода текста значений
+    const budgetVal = document.getElementById('budgetVal');
+    const cpcVal = document.getElementById('cpcVal');
+    const crVal = document.getElementById('crVal');
+    const scaleVal = document.getElementById('scaleVal'); // Новый текст
 
-    let currentMetric = 'leads';
-    let scaleFactor = 1;
-    let myChart;
+    // Получаем доступ к этапам воронки
+    const funnelTraffic = document.getElementById('funnel-traffic');
+    const funnelMql = document.getElementById('funnel-mql');
+    const funnelSql = document.getElementById('funnel-sql');
+    const funnelDeals = document.getElementById('funnel-deals');
 
-    function initChart() {
-        const template = dataTemplates[currentMetric];
-        myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: template.labels,
-                datasets: [{
-                    label: template.label,
-                    data: template.data,
-                    borderColor: template.color,
-                    backgroundColor: template.color + '15',
-                    fill: true,
-                    tension: 0.3,
-                    borderWidth: 3,
-                    pointRadius: 5,
-                    pointBackgroundColor: template.color
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { labels: { color: '#9ca3af', font: { family: '-apple-system', size: 12 } } }
-                },
-                scales: {
-                    y: {
-                        grid: { color: '#1f2937' },
-                        ticks: { color: '#9ca3af' }
-                    },
-                    x: {
-                        grid: { display: false },
-                        ticks: { color: '#9ca3af' }
-                    }
-                }
-            }
-        });
+    function calculateFunnel() {
+        // Получаем текущие значения с ползунков
+        const budget = parseInt(budgetSlider.value, 10);
+        const cpc = parseInt(cpcSlider.value, 10);
+        const cr = parseFloat(crSlider.value) / 100;
+        const scaleFactor = parseInt(scaleSlider.value, 10) / 100; // Переводим проценты эффективности в коэффициент (0.1 - 1.0)
+
+        // Расчет юнит-экономики воронки с учетом фактора масштабирования
+        const traffic = Math.round(budget / cpc);
+        
+        // Эффективность масштабирования снижает конверсию на следующих этапах воронки
+        const mql = Math.round((traffic * cr) * scaleFactor);
+        const sql = Math.round((mql * 0.40));   // Базовая конверсия MQL -> SQL (40%)
+        const deals = Math.round((sql * 0.25)); // Базовая конверсия SQL -> Сделки (25%)
+
+        // Обновляем числа над ползунками
+        budgetVal.innerText = budget.toLocaleString('ru-RU');
+        cpcVal.innerText = cpc;
+        crVal.innerText = crSlider.value;
+        scaleVal.innerText = scaleSlider.value; // Обновляем процент эффективности
+
+        // Записываем обновленные результаты внутрь этапов воронки
+        funnelTraffic.innerText = traffic.toLocaleString('ru-RU');
+        funnelMql.innerText = mql.toLocaleString('ru-RU');
+        funnelSql.innerText = sql.toLocaleString('ru-RU');
+        funnelDeals.innerText = deals.toLocaleString('ru-RU');
     }
 
-    function updateChart() {
-        const template = dataTemplates[currentMetric];
-        myChart.data.labels = template.labels;
-        myChart.data.datasets[0].label = template.label;
-        myChart.data.datasets[0].borderColor = template.color;
-        myChart.data.datasets[0].pointBackgroundColor = template.color;
-        myChart.data.datasets[0].backgroundColor = template.color + '15';
-        myChart.data.datasets[0].data = template.data.map(val => Number((val * scaleFactor).toFixed(1)));
-        myChart.update();
-    }
-
-    // Инициализация
-    initChart();
-
-    // Слушатели кнопок управления
-    document.getElementById('metricSelect').addEventListener('change', (e) => {
-        currentMetric = e.target.value;
-        updateChart();
+    // Вешаем отслеживание изменений на все четыре ползунка
+    [budgetSlider, cpcSlider, crSlider, scaleSlider].forEach(slider => {
+        slider.addEventListener('input', calculateFunnel);
     });
 
-    document.getElementById('budgetSlider').addEventListener('input', (e) => {
-        const val = e.target.value;
-        scaleFactor = val / 100;
-        document.getElementById('sliderVal').innerText = `Эффективность масштабирования: ${val}%`;
-        updateChart();
-    });
+    // Первый запуск расчетов при загрузке страницы
+    calculateFunnel();
 });
