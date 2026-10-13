@@ -154,21 +154,30 @@
     <!-- Верхний ряд: Воронка и График -->
     <div class="dashboard-main-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
         
-        <!-- Левая колонка: Воронка продаж -->
-        <div class="funnel-block" style="background: #1e293b; padding: 16px; border-radius: 8px;">
-            <h3 style="margin-top:0;">Кейсы Павла Лискина</h3>
-            <div class="funnel-stage" style="background: #3b82f6; margin: 8px 0; padding: 12px; text-align: center; clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);">
-                Трафик: <span id="funnel-traffic">3 333</span>
-            </div>
-            <div class="funnel-stage" style="background: #60a5fa; margin: 8px auto; padding: 12px; text-align: center; width: 85%; clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);">
-                MQL: <span id="funnel-mql">283</span>
-            </div>
-            <div class="funnel-stage" style="background: #f59e0b; margin: 8px auto; padding: 12px; text-align: center; width: 70%; clip-path: polygon(0 0, 100% 0, 75% 100%, 25% 100%);">
-                SQL: <span id="funnel-sql">113</span>
-            </div>
-            <div class="funnel-stage" style="background: #10b981; margin: 8px auto; padding: 12px; text-align: center; width: 50%; clip-path: polygon(0 0, 100% 0, 70% 100%, 30% 100%);">
-                Сделки: <span id="funnel-deals">28</span>
-            </div>
+        <!-- Левая колонка: Воронка продаж. Визуальный блок воронки (Прямоугольный стиль) -->
+    <div class="funnel-container" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px;">
+        
+        <!-- Этап 1: Трафик -->
+        <div id="block-traffic" style="background: #3b82f6; padding: 14px; text-align: center; font-weight: bold; font-size: 0.95rem; border-radius: 8px; transition: width 0.4s ease; margin: 0 auto; width: 100%;">
+            Трафик: <span id="funnel-traffic">3 333</span>
+        </div>
+        
+        <!-- Этап 2: MQL -->
+        <div id="block-mql" style="background: #60a5fa; padding: 14px; text-align: center; font-weight: bold; font-size: 0.95rem; border-radius: 8px; margin: 0 auto; width: 85%; transition: width 0.4s ease;">
+            MQL: <span id="funnel-mql">283</span>
+        </div>
+        
+        <!-- Этап 3: SQL -->
+        <div id="block-sql" style="background: #f59e0b; padding: 14px; text-align: center; font-weight: bold; font-size: 0.95rem; border-radius: 8px; margin: 0 auto; width: 70%; transition: width 0.4s ease;">
+            SQL: <span id="funnel-sql">113</span>
+        </div>
+        
+        <!-- Этап 4: Сделки -->
+        <div id="block-deals" style="background: #10b981; padding: 14px; text-align: center; font-weight: bold; font-size: 0.95rem; border-radius: 8px; margin: 0 auto; width: 55%; transition: width 0.4s ease;">
+            Сделки: <span id="funnel-deals">28</span>
+        </div>
+        
+    </div>
         </div>
 
         <!-- Правая колонка: Линейный график -->
