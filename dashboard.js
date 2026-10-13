@@ -1,55 +1,85 @@
-window.addEventListener('DOMContentLoaded', () => {
-    // Получаем доступ к элементам ползунков
-    const budgetSlider = document.getElementById('budgetSlider');
-    const cpcSlider = document.getElementById('cpcSlider');
-    const crSlider = document.getElementById('crSlider');
-    const scaleSlider = document.getElementById('scaleSlider'); // Новый ползунок
+window.addEventListener('load', () => {
+    const ctx = document.getElementById('metricsChart').getContext('2d');
+    let myChart;
 
-    // Получаем доступ к элементам вывода текста значений
-    const budgetVal = document.getElementById('budgetVal');
-    const cpcVal = document.getElementById('cpcVal');
-    const crVal = document.getElementById('crVal');
-    const scaleVal = document.getElementById('scaleVal'); // Новый текст
+    // Шаблоны данных под каналы
+    const channelPresets = {
+        context: { budget: 150000, cpc: 45, cr: 8.5, retention: 65 },
+        target: { budget: 120000, cpc: 35, cr: 6.0, retention: 50 },
+        seo: { budget: 200000, cpc: 60, cr: 10.0, retention: 80 }
+    };
 
-    // Получаем доступ к этапам воронки
-    const funnelTraffic = document.getElementById('funnel-traffic');
-    const funnelMql = document.getElementById('funnel-mql');
-    const funnelSql = document.getElementById('funnel-sql');
-    const funnelDeals = document.getElementById('funnel-deals');
+    function calculateMetrics() {
+        const budget = parseFloat(document.getElementById('budgetSlider').value);
+        const cpc = parseFloat(document.getElementById('cpcSlider').value);
+        const cr = parseFloat(document.getElementById('crSlider').value) / 100;
+        const retention = parseFloat(document.getElementById('retentionSlider').value) / 100;
 
-    function calculateFunnel() {
-        // Получаем текущие значения с ползунков
-        const budget = parseInt(budgetSlider.value, 10);
-        const cpc = parseInt(cpcSlider.value, 10);
-        const cr = parseFloat(crSlider.value) / 100;
-        const scaleFactor = parseInt(scaleSlider.value, 10) / 100; // Переводим проценты эффективности в коэффициент (0.1 - 1.0)
-
-        // Расчет юнит-экономики воронки с учетом фактора масштабирования
+        // Математика расчетов
         const traffic = Math.round(budget / cpc);
+        const mql = Math.round(traffic * cr);
+        const sql = Math.round(mql * 0.4); // Допустим 40% из MQL в SQL
+        const deals = Math.round(sql * 0.25); // Конверсия в сделку 25%
         
-        // Эффективность масштабирования снижает конверсию на следующих этапах воронки
-        const mql = Math.round((traffic * cr) * scaleFactor);
-        const sql = Math.round((mql * 0.40));   // Базовая конверсия MQL -> SQL (40%)
-        const deals = Math.round((sql * 0.25)); // Базовая конверсия SQL -> Сделки (25%)
+        const avgCheck = 15000; // Средний чек сделки
+        const revenue = deals * avgCheck * (1 + retention);
+        const romi = ((revenue - budget) / budget * 100).toFixed(1);
 
-        // Обновляем числа над ползунками
-        budgetVal.innerText = budget.toLocaleString('ru-RU');
-        cpcVal.innerText = cpc;
-        crVal.innerText = crSlider.value;
-        scaleVal.innerText = scaleSlider.value; // Обновляем процент эффективности
+        // Обновляем текстовые элементы на странице
+        document.getElementById('funnel-traffic').innerText = traffic.toLocaleString();
+        document.getElementById('funnel-mql').innerText = mql.toLocaleString();
+        document.getElementById('funnel-sql').innerText = sql.toLocaleString();
+        document.getElementById('funnel-deals').innerText = deals.toLocaleString();
+        
+        document.getElementById('kpi-revenue').innerText = Math.round(revenue).toLocaleString();
+        document.getElementById('kpi-romi').innerText = romi;
+        document.getElementById('kpi-sql').innerText = sql;
 
-        // Записываем обновленные результаты внутрь этапов воронки
-        funnelTraffic.innerText = traffic.toLocaleString('ru-RU');
-        funnelMql.innerText = mql.toLocaleString('ru-RU');
-        funnelSql.innerText = sql.toLocaleString('ru-RU');
-        funnelDeals.innerText = deals.toLocaleString('ru-RU');
+        return [traffic * 0.1, mql * 0.3, sql * 0.6, deals * 2, deals * 3, deals * 4, deals * 3.8, deals * 4.2]; 
+        // Имитируем тренд для графика по месяцам (Янв-Авг)
     }
 
-    // Вешаем отслеживание изменений на все четыре ползунка
-    [budgetSlider, cpcSlider, crSlider, scaleSlider].forEach(slider => {
-        slider.addEventListener('input', calculateFunnel);
+    function initChart() {
+        const initialData = calculateMetrics();
+        myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг'],
+                datasets: [{
+                    label: 'Выручка по месяцам',
+                    data: initialData,
+                    borderColor: '#10b981',
+                    tension: 0.4,
+                    fill: false
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+    }
+
+    function updateAll() {
+        const newData = calculateMetrics();
+        myChart.data.datasets[0].data = newData;
+        myChart.update();
+    }
+
+    // Слушатели ползунков
+    document.querySelectorAll('input[type="range"]').forEach(slider => {
+        slider.addEventListener('input', (e) => {
+            document.getElementById(e.target.id.replace('Slider', 'Val')).innerText = e.target.value;
+            updateAll();
+        });
     });
 
-    // Первый запуск расчетов при загрузке страницы
-    calculateFunnel();
+    // Изменение пресета канала
+    document.getElementById('channelSelect').addEventListener('change', (e) => {
+        const preset = channelPresets[e.target.value];
+        for (let key in preset) {
+            document.getElementById(`${key}Slider`).value = preset[key];
+            document.getElementById(`${key}Val`).innerText = preset[key];
+        }
+        updateAll();
+    });
+
+    initChart();
 });
